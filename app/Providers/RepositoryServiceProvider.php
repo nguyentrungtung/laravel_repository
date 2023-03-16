@@ -26,5 +26,8 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\UserRepositoryInterface::class,
             \App\Repositories\Eloquent\UserRepository::class
         );
+
+        //Eloquent
+
     }
 }
