@@ -29,9 +29,17 @@
             </ul>
         </li>
 
-
-
-
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-users"></i> <span>Mangager Media</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ route('ckfinder_browser') }}"><i class="fa fa-hand-o-right"></i>Mangager Media</a></li>
+            </ul>
+        </li>
 
         {{--<li><a href="#"><i class="fa fa-users"></i> <span>Documentation</span></a></li>--}}
 
