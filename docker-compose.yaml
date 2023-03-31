@@ -23,7 +23,6 @@ services:
       DB_PORT: 3306
       DB_USERNAME: root
       DB_PASSWORD: tung1994@
-      DB_DATABASE: ommani
       REDIS_HOST: cache
       REDIS_PORT: 6379
       REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMxxtyKVge8oLd2t812213
@@ -44,7 +43,6 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: tung1994@
-      MYSQL_DATABASE: ommani
       MYSQL_USER: tungnt
       MYSQL_PASSWORD: tung123456
     ports:

@@ -62,6 +62,11 @@ Route::group(['namespace' => 'Admin'], function () {
     });
 });
 
+Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
+    ->name('ckfinder_connector');
+Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
+    ->name('ckfinder_browser');
+
 Route::get('/error', function () {
     return view('admin.errors.404');
 })->name('404.error');

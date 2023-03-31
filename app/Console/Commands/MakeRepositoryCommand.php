@@ -77,8 +77,8 @@ class MakeRepositoryCommand extends Command
         // Map Interface and Concrete
         $this->createContract();
 
-
-        //return Command::SUCCESS;
+        $this->info('Repository ' . $this->argument('name') . ' created successfully.');
+//        return Command::SUCCESS;
     }
 
 
@@ -94,7 +94,10 @@ class MakeRepositoryCommand extends Command
         $interface = 'Interface';
         $replace = <<<EDT
             //Eloquent
-                    {$dollar}this->app->singleton($slash$this->concretePath::class,$slash$this->contractPath{$interface}::class);
+                    {$dollar}this->app->singleton(
+                        $slash$this->contractPath{$interface}::class,
+                        $slash$this->concretePath::class
+                    );
             EDT;
         $content = preg_replace($search, $replace, $content);
         file_put_contents($path, $content);

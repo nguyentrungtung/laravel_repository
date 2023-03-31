@@ -85,7 +85,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         $input = $request->only([
             'name',
@@ -101,7 +101,6 @@ class UserController extends Controller
             throw new Exception($e);
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -137,19 +136,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         if ($request->password){
             $input = $request->only([
                 'name',
-                'email',
                 'password',
             ]);
         }else{
             $input = $request->only([
                 'name',
-                'email',
-                'role',
             ]);
         }
 
