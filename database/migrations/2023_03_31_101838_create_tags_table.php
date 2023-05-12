@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('tag_name');
-            $table->string('meta_title', 255)->nullable();
+            $table->string('meta_title'. 255)->nullable();
             $table->string('meta_description', 300)->nullable();
-            $table->foreignId('user_id')->constrained('users');
+            $table->integer('user_id')->unsigned();
             $table->tinyInteger('published')->default(0);
             $table->string('tag_description', 255)->nullable();
             $table->timestamps();

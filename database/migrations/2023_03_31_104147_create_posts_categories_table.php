@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts_categories', function (Blueprint $table) {
-            $table->foreignId('post_id')->constrained('posts');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->integer('post_id');
+            $table->integer('category_id');
         });
     }
 

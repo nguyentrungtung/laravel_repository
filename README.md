@@ -30,7 +30,6 @@
 -- laravelcollective/html
 -- ckfinder/ckfinder-laravel-package
 -- composer require opcodesio/log-viewer
--- composer require spatie/laravel-permission
 ```
 
 ## Install deployment Project

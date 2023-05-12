@@ -169,7 +169,6 @@ return [
          */
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\ServiceBindProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
