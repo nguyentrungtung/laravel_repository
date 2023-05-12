@@ -29,7 +29,7 @@
 -- barryvdh/laravel-debugbar
 -- laravelcollective/html
 -- ckfinder/ckfinder-laravel-package
--- composer require opcodesio/log-viewer
+-- composer require tightenco/duster --dev
 ```
 
 ## Install deployment Project
