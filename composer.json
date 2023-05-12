@@ -13,8 +13,7 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
-        "laravelcollective/html": "^6.4",
-        "opcodesio/log-viewer": "^2.3"
+        "laravelcollective/html": "^6.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
@@ -24,7 +23,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "tightenco/duster": "*"
     },
     "autoload": {
         "psr-4": {

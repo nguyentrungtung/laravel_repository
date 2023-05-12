@@ -48,11 +48,24 @@
 -- http:localhost:8000/login ( dashboard login admin )
 ```
 
-## artisan command support
+## artisan command support make repository cmd
 
 #### create repository
 
 - php artisan make:repository name_repository
+
+## Generate coding conversion beautifully
+
+##### Usage
+To lint everything at once:
+
+```
+./vendor/bin/duster lint
+```
+To fix everything at once:
+```
+./vendor/bin/duster fix
+```
 
 #### generate php doc comment
 - php artisan ide-helper:models "App\Models\Post"

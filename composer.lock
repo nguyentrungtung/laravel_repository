@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "596907d05f8b920bf3370fad8f8b22b4",
+    "content-hash": "54fa45c54cc1df9674865b84e5beb0c1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1904,6 +1904,7 @@
                 "issues": "https://github.com/LaravelCollective/html/issues",
                 "source": "https://github.com/LaravelCollective/html"
             },
+            "abandoned": "spatie/laravel-html",
             "time": "2023-02-13T18:15:35+00:00"
         },
         {
@@ -3081,84 +3082,6 @@
                 }
             ],
             "time": "2023-02-08T01:06:31+00:00"
-        },
-        {
-            "name": "opcodesio/log-viewer",
-            "version": "v2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/opcodesio/log-viewer.git",
-                "reference": "938c3142339562d09293469f57053b31c54e92db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/opcodesio/log-viewer/zipball/938c3142339562d09293469f57053b31c54e92db",
-                "reference": "938c3142339562d09293469f57053b31c54e92db",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^8.0|^9.0|^10.0",
-                "php": "^8.0"
-            },
-            "conflict": {
-                "arcanedev/log-viewer": "^8.0"
-            },
-            "require-dev": {
-                "guzzlehttp/guzzle": "^7.2",
-                "itsgoingd/clockwork": "^5.1",
-                "laravel/pint": "^1.0",
-                "nunomaduro/collision": "^6.0",
-                "orchestra/testbench": "^7.6|^8.0",
-                "pestphp/pest": "^1.21",
-                "pestphp/pest-plugin-laravel": "^1.1",
-                "phpunit/phpunit": "^9.5",
-                "spatie/test-time": "^1.3"
-            },
-            "suggest": {
-                "guzzlehttp/guzzle": "Required for multi-host support. ^7.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Opcodes\\LogViewer\\LogViewerServiceProvider"
-                    ],
-                    "aliases": {
-                        "LogViewer": "Opcodes\\LogViewer\\Facades\\LogViewer"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Opcodes\\LogViewer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arunas Skirius",
-                    "email": "arukomp@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Fast and easy-to-use log viewer for your Laravel application",
-            "homepage": "https://github.com/opcodesio/log-viewer",
-            "keywords": [
-                "arukompas",
-                "better-log-viewer",
-                "laravel",
-                "log viewer",
-                "logs",
-                "opcodesio"
-            ],
-            "support": {
-                "issues": "https://github.com/opcodesio/log-viewer/issues",
-                "source": "https://github.com/opcodesio/log-viewer/tree/v2.3.2"
-            },
-            "time": "2023-03-19T11:03:34+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -9955,6 +9878,76 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "tightenco/duster",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tighten/duster.git",
+                "reference": "ae429dbee9e8efad32488fd4ed34d591ecedeec1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tighten/duster/zipball/ae429dbee9e8efad32488fd4ed34d591ecedeec1",
+                "reference": "ae429dbee9e8efad32488fd4ed34d591ecedeec1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.16.0",
+                "laravel-zero/framework": "^10.0.0",
+                "laravel/pint": "^1.9",
+                "nunomaduro/termwind": "^1.15.1",
+                "spatie/invade": "^1.1",
+                "squizlabs/php_codesniffer": "^3.7",
+                "tightenco/tlint": "^8.0"
+            },
+            "bin": [
+                "builds/duster"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "Database\\Seeders\\": "database/seeders/",
+                    "Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Stauffer",
+                    "email": "matt@tighten.com",
+                    "homepage": "https://tighten.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anthony Clark",
+                    "email": "anthony@tighten.com",
+                    "homepage": "https://tighten.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Automatic configuration for Laravel apps to apply Tighten's standard linting & code standards.",
+            "homepage": "https://github.com/tighten/duster",
+            "keywords": [
+                "Code style",
+                "duster",
+                "laravel",
+                "php",
+                "tightenco"
+            ],
+            "support": {
+                "issues": "https://github.com/tighten/duster/issues",
+                "source": "https://github.com/tighten/duster"
+            },
+            "time": "2023-04-18T18:55:32+00:00"
         }
     ],
     "aliases": [],
