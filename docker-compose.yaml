@@ -1,0 +1,78 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: root
+        uid: 1001
+      context: ./
+      dockerfile: Dockerfile
+    image: php-app
+    container_name: php-app-base
+    restart: always
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - php-app
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: tung1994@
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMxxtyKVge8oLd2t812213
+      PHP_IDE_CONFIG: serverName=docker
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6378:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMxxtyKVge8oLd2t812213
+    volumes:
+      - ./docker-compose/cache:/data
+    networks:
+      - php-app
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: tung1994@
+      MYSQL_USER: tungnt
+      MYSQL_PASSWORD: tung123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker-compose/mysql/data:/var/lib/mysql
+    networks:
+      - php-app
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8088:80
+    networks:
+      - php-app
+  nginx:
+    image: nginx:alpine
+    container_name: php-app-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - php-app
+networks:
+  php-app:
+    driver: bridge

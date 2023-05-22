@@ -1,0 +1,11 @@
+{
+    "exclude": [
+        "storage/*",
+        "vendor/*",
+        "test/*",
+        "public/*"
+    ],
+    "scripts": {
+    },
+    "processTimeout": 120
+}
