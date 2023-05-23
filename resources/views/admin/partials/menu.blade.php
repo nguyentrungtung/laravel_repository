@@ -17,7 +17,7 @@
         <li class="header"></li>
         <li><a href="{{ route('home.index') }}"><i class="fa fa-dashboard"></i> <span>@lang('menu.home')</span></a></li>
 
-        @if(auth()->user()->checkPermissionTo('list user'))
+{{--        @if(auth()->user()->checkPermissionTo('list user'))--}}
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-users"></i> <span>@lang('menu.users')</span>
@@ -26,17 +26,17 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                @if(auth()->user()->checkPermissionTo('list user'))
+{{--                @if(auth()->user()->checkPermissionTo('list user'))--}}
                     <li><a href="{{ route('user.index') }}"><i class="fa fa-hand-o-right"></i>@lang('menu.listusers')</a></li>
-                @endif
-                @if(auth()->user()->checkPermissionTo('list user'))
+{{--                @endif--}}
+{{--                @if(auth()->user()->checkPermissionTo('list user'))--}}
                 <li>
                     <a href="{{ route('rolepermission.index') }}"><i class="fa fa-hand-o-right"></i>@lang('menu.listrolepermission')</a>
                 </li>
-                @endif
+{{--                @endif--}}
             </ul>
         </li>
-        @endif
+{{--        @endif--}}
         @if(auth()->user()->checkPermissionTo('list banner'))
         <li class="treeview">
             <a href="#">

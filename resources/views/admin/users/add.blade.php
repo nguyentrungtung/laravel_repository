@@ -14,11 +14,15 @@
 @section('content')
     <div class="row">
         <div class="box">
-            <div class="box-body warper_form">
-                {!! Form::open(['route' => 'user.store', 'method' => 'POST', 'class' => 'form-horizontal', 'user' => 'form']) !!}
-                    {!! $formHtml !!}
-                {!! Form::close() !!}
-            </div>
+
+                <section class="content">
+                    <div class="box box-primary">
+                        {!! Form::open(['route' => 'user.store', 'method' => 'POST', 'class' => 'form-horizontal', 'user' => 'form']) !!}
+                        {!! $formHtml !!}
+                        {!! Form::close() !!}
+                    </div>
+                </section>
+
         </div>
     </div>
 @endsection
@@ -38,5 +42,13 @@
         $(document).ready(function (){
             $('.select2').select2();
         });
+    </script>
+
+    <script>
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass   : 'iradio_minimal-blue'
+        })
     </script>
 @endsection

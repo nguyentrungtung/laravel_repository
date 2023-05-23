@@ -46,16 +46,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-            // $permission = Permission::create(['name' => 'list binh luan bai viet']);
-            // $permission = Permission::create(['name' => 'edit binh luan bai viet']);
-            // $permission = Permission::create(['name' => 'add binh luan bai viet']);
-            // $permission = Permission::create(['name' => 'delete binh luan bai viet']);
-        // $user = User::find(1);
-        // $permissions = Permission::all();
-        // foreach ($permissions as $key => $value) {
-        //     $user->givePermissionTo($value);
-        // }
-        if (\Auth::user()->hasPermissionTo('list user')) {
+//        if (\Auth::user()->hasPermissionTo('list user')) {
             $offset = $request->get('offset', '');
             $limit = $request->get('limit', 20);
             $order = $request->get('order', 'id');
@@ -76,9 +67,9 @@ class UserController extends Controller
             ];
 
             return view('admin.users.index', compact('users', 'breadcrumbs'));
-        } else {
-            \App::abort(403);
-        }
+//        } else {
+//            \App::abort(403);
+//        }
     }
 
     /**
@@ -88,7 +79,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (\Auth::user()->hasPermissionTo('add user')) {
+        //if (\Auth::user()->hasPermissionTo('add user')) {
         $title = 'Create';
 
         $breadcrumbs = [
@@ -97,11 +88,43 @@ class UserController extends Controller
             ['title' => 'User', 'url' => route('user.create')]
         ];
 
+        $users = User::pluck('name', 'id')->all();
+
         $form = new FormBuilder();
         $form->addField('text', 'name', 'Tên');
         $form->addField('email', 'email', 'Email');
         $form->addField('password', 'password', 'Password');
         $form->addField('password', 'password_confirmation', 'Password confirmation');
+        $form->addField('select', 'user_id', 'Select User', [
+            'options' => $users,
+            'multiple' => true,
+        ]);
+        $form->addField('radio', 'color', 'Color',
+            [
+                'choices' => [
+                    'red' => 'Red',
+                    'green' => 'Green',
+                    'blue' => 'Blue',
+                ],
+                'id' => 'color_radio',
+                'value' => 'red',
+                'class' => 'minimal'
+            ]
+        );
+
+        $form->addField('checkbox', 'color', 'Color',
+            [
+                'choices' => [
+                    'red' => 'Red',
+                    'green' => 'Green',
+                    'blue' => 'Blue',
+                ],
+                'id' => 'color_radio',
+                'value' => 'red',
+                'class' => 'minimal'
+            ]
+        );
+
         $form->addField('submit', 'submit', 'submit', ['class' => 'btn btn-primary']);
         $formHtml = $form->render();
 
@@ -109,9 +132,9 @@ class UserController extends Controller
 
         return view('admin.users.add', compact( 'title', 'breadcrumbs', 'formHtml', 'roles'));
 
-        } else {
-            \App::abort(403);
-        }
+//        } else {
+//            \App::abort(403);
+//        }
     }
 
     /**
@@ -122,7 +145,7 @@ class UserController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        if (\Auth::user()->hasPermissionTo('add user')) {
+        //if (\Auth::user()->hasPermissionTo('add user')) {
             try {
                 $input = $request->only([
                     'name',
@@ -140,9 +163,9 @@ class UserController extends Controller
             } catch (Exception $e) {
                 throw new Exception($e);
             }
-        } else {
-            \App::abort(403);
-        }
+//        } else {
+//            \App::abort(403);
+//        }
     }
 
     /**
@@ -170,7 +193,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (\Auth::user()->hasPermissionTo('edit user')) {
+        //if (\Auth::user()->hasPermissionTo('edit user')) {
             $user = $this->userRepository->findOrFail($id);
 
             $breadcrumbs = [
@@ -188,9 +211,9 @@ class UserController extends Controller
             $roles = Role::all();
             return view('admin.users.edit', compact('user', 'breadcrumbs', 'formHtml','roles'));
 
-        } else {
-            \App::abort(403);
-        }
+//        } else {
+//            \App::abort(403);
+//        }
     }
 
     /**
@@ -202,7 +225,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        if (\Auth::user()->hasPermissionTo('edit user')) {
+        //if (\Auth::user()->hasPermissionTo('edit user')) {
             if ($request->password) {
                 $input = $request->only([
                     'name',
@@ -240,10 +263,10 @@ class UserController extends Controller
                 return redirect()->route('user.index')->with('success', 'Update successfully');
             }
         }
-        else {
-                \App::abort(403);
-            }
-        }
+//        else {
+//                \App::abort(403);
+//            }
+//        }
 
     /**
      * Remove the specified resource from storage.
@@ -255,7 +278,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if (\Auth::user()->hasPermissionTo('delete user')) {
+        //if (\Auth::user()->hasPermissionTo('delete user')) {
             $user = $this->userRepository->findOrFail($id);
             if (empty($user)) {
                 session()->flash('error', 'Not found user.');
@@ -272,13 +295,13 @@ class UserController extends Controller
             } catch (Exception $e) {
                 throw new Exception($e);
             }
-        } else {
-            \App::abort(403);
-        }
+//        } else {
+//            \App::abort(403);
+//        }
     }
 
     /**
-     * @return bool[]|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return bool[]
      */
     public function profileUser($id)
     {

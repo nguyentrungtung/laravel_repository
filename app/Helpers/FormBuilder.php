@@ -36,15 +36,29 @@ class FormBuilder
         return $html;
     }
 
-    public function addField($type, $name, $label, $options = [], $value = '')
+    public function addField($type, $name, $label, $options = [])
     {
         if ($type === 'submit') {
             $this->addSubmitButton($name, $label, $options);
         } else {
-            $this->fields[] = compact('type', 'name', 'label', 'options', 'value');
+//            $this->fields[] = compact('type', 'name', 'label', 'options');
+//            if (isset($options['rules'])) {
+//                $this->rules[$name] = $options['rules'];
+//            }
+
+            $field = compact('type', 'name', 'label', 'options');
             if (isset($options['rules'])) {
                 $this->rules[$name] = $options['rules'];
             }
+
+            if ($type === 'radio' && isset($options['choices'])) {
+                $field['options']['choices'] = $options['choices'];
+                $field['options']['id'] = isset($options['id']) ? $options['id'] : $name;
+                $field['options']['value'] = isset($options['value']) ? $options['value'] : '';
+                $field['options']['label_position'] = isset($options['label_position']) ? $options['label_position'] : 'before';
+            }
+
+            $this->fields[] = $field;
         }
     }
 
@@ -165,13 +179,13 @@ class FormBuilder
 
         $html .= '<div class="col-sm-10">';
 
-        $attributes = '';
-        if (isset($options['class'])) {
-            $attributes .= ' class="' . $options['class'] . '"';
-        }
-        if (isset($options['id'])) {
-            $attributes .= ' id="' . $options['id'] . '"';
-        }
+//        $attributes = '';
+//        if (isset($options['class'])) {
+//            $attributes .= ' class="' . $options['class'] . '"';
+//        }
+//        if (isset($options['id'])) {
+//            $attributes .= ' id="' . $options['id'] . '"';
+//        }
 
 
         switch ($type) {
@@ -252,12 +266,24 @@ class FormBuilder
 
     protected function renderEmailInput($name, $options)
     {
-        $html = '<input type="email" class="form-control" name="' . $name . '"';
+        $html = '<input type="email" name="' . $name . '"';
 
         foreach ($options as $option => $value) {
             if ($option !== 'id') {
                 $html .= ' ' . $option . '="' . $value . '"';
             }
+        }
+
+        // Kiểm tra nếu có thuộc tính css_class
+        if (isset($options['class'])) {
+            $html .= ' class="form-control ' . $options['class'] . '"';
+        } else {
+            $html .= ' class="form-control"';
+        }
+
+        // Kiểm tra nếu có thuộc tính id
+        if (isset($options['id'])) {
+            $html .= ' id="' . $options['id'] . '"';
         }
 
         $html .= '>';
@@ -274,12 +300,24 @@ class FormBuilder
 
     protected function renderPasswordInput($name, $options)
     {
-        $html = '<input class="form-control" type="password" name="' . $name . '"';
+        $html = '<input type="password" name="' . $name . '"';
 
         foreach ($options as $option => $value) {
             if ($option !== 'id') {
                 $html .= ' ' . $option . '="' . $value . '"';
             }
+        }
+
+        // Kiểm tra nếu có thuộc tính css_class
+        if (isset($options['class'])) {
+            $html .= ' class="form-control ' . $options['class'] . '"';
+        } else {
+            $html .= ' class="form-control"';
+        }
+
+        // Kiểm tra nếu có thuộc tính id
+        if (isset($options['id'])) {
+            $html .= ' id="' . $options['id'] . '"';
         }
 
         $html .= '>';
@@ -296,12 +334,24 @@ class FormBuilder
 
     protected function renderTextarea($name, $options)
     {
-        $html = '<textarea class="form-control" name="' . $name . '"';
+        $html = '<textarea name="' . $name . '"';
 
         foreach ($options as $option => $value) {
             if ($option !== 'id') {
                 $html .= ' ' . $option . '="' . $value . '"';
             }
+        }
+
+        // Kiểm tra nếu có thuộc tính css_class
+        if (isset($options['class'])) {
+            $html .= ' class="form-control ' . $options['class'] . '"';
+        } else {
+            $html .= ' class="form-control"';
+        }
+
+        // Kiểm tra nếu có thuộc tính id
+        if (isset($options['id'])) {
+            $html .= ' id="' . $options['id'] . '"';
         }
 
         $html .= '></textarea>';
@@ -318,8 +368,11 @@ class FormBuilder
 
     protected function renderSelect($name, $options)
     {
-        $html = '<select class="form-control" name="' . $name . '"';
+        $multiple = !empty($options['multiple']) ? 'multiple' : '';
 
+//        $html = '<select class="form-control select2"' . $multiple ? multiple="multiple" . '"  name="' . $name . '"';
+//        $html = '<select class="form-control select2"' . ($multiple ? ' multiple="multiple"' : '') . ' name="' . $name . '"';
+        $html = '<select class="form-control select2"' . ($multiple ? ' multiple="multiple" data-tags="true"' : '') . ' name="' . $name . '"';
         foreach ($options as $option => $value) {
             if ($option !== 'id' && $option !== 'options') {
                 $html .= ' ' . $option . '="' . $value . '"';
@@ -328,8 +381,12 @@ class FormBuilder
 
         $html .= '>';
 
-        foreach ($options['options'] as $optionValue => $optionLabel) {
-            $html .= '<option value="' . $optionValue . '">' . $optionLabel . '</option>';
+        $selectOptions = $options['options'];
+
+        if (is_array($selectOptions) && count($selectOptions) > 0) {
+            foreach ($selectOptions as $optionValue => $optionLabel) {
+                $html .= '<option value="' . $optionValue . '">' . $optionLabel . '</option>';
+            }
         }
 
         $html .= '</select>';
@@ -344,17 +401,46 @@ class FormBuilder
         return $html;
     }
 
+//    protected function renderCheckbox($name, $label, $options)
+//    {
+//        $radioClass  = !empty($options['class']) ? 'class="' . $options["class"] . '"' : '';
+//        $html = '<label><input class="form-control" type="checkbox" name="' . $name . '"';
+//
+//        foreach ($options as $option => $value) {
+//            if ($option !== 'id') {
+//                $html .= ' ' . $option . '="' . $value . '"';
+//            }
+//        }
+//
+//        $html .= '> ' . $label . '</label>';
+//
+//        $errors = session('errors');
+//
+//        if ($errors && $errors->has($name)) {
+//            $error = $errors->first($name);
+//            $html .= '<span class="error-message">' . $error . '</span>';
+//        }
+//
+//        return $html;
+//    }
+
     protected function renderCheckbox($name, $label, $options)
     {
-        $html = '<label><input class="form-control" type="checkbox" name="' . $name . '"';
+        $html = '';
 
-        foreach ($options as $option => $value) {
-            if ($option !== 'id') {
-                $html .= ' ' . $option . '="' . $value . '"';
+        foreach ($options['choices'] as $value => $choiceLabel) {
+            $radioId = $options['id'] . '_' . $value;
+            $checked = ($value == $options['value']) ? 'checked' : '';
+            $radioClass  = !empty($options['class']) ? 'class="' . $options["class"] . '"' : '';
+
+            $html .= '<label><input type="checkbox"'. $radioClass . ' name="' . $name . '" id="' . $radioId . '" value="' . $value . '" ' . $checked . '>';
+
+            if (isset($options['label_position']) && $options['label_position'] === 'after') {
+                $html .= $choiceLabel . '</label> ';
+            } else {
+                $html .= '</label> ' . $choiceLabel . '&nbsp &nbsp';
             }
         }
-
-        $html .= '> ' . $label . '</label>';
 
         $errors = session('errors');
 
@@ -368,15 +454,21 @@ class FormBuilder
 
     protected function renderRadio($name, $label, $options)
     {
-        $html = '<label><input class="form-control" type="radio" name="' . $name . '"';
+        $html = '';
 
-        foreach ($options as $option => $value) {
-            if ($option !== 'id') {
-                $html .= ' ' . $option . '="' . $value . '"';
+        foreach ($options['choices'] as $value => $choiceLabel) {
+            $radioId = $options['id'] . '_' . $value;
+            $checked = ($value == $options['value']) ? 'checked' : '';
+            $radioClass  = !empty($options['class']) ? 'class="' . $options["class"] . '"' : '';
+
+            $html .= '<label><input type="radio"'. $radioClass . ' name="' . $name . '" id="' . $radioId . '" value="' . $value . '" ' . $checked . '>';
+
+            if (isset($options['label_position']) && $options['label_position'] === 'after') {
+                $html .= $choiceLabel . '</label> ';
+            } else {
+                $html .= '</label> ' . $choiceLabel . '&nbsp &nbsp';
             }
         }
-
-        $html .= '> ' . $label . '</label>';
 
         $errors = session('errors');
 
