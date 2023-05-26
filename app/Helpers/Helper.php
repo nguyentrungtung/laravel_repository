@@ -153,16 +153,6 @@ if (!function_exists('isValidPhoneNumberVN')) {
     }
 }
 
-if (!function_exists('isValidPhoneNumberVN')) {
-    /**
-     * @param $phoneNumber
-     * @return false|int
-     * This phone number regex will validate most common phone number formats correctly.
-     */
-    function isValidPhoneNumberVN($phoneNumber){
-        return preg_match('/(84|0[3|5|7|8|9])+([0-9]{8})\b/', $phoneNumber);
-    }
-}
 
 if (!function_exists('renderMenu')) {
     function renderMenu($menuItems)
