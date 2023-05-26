@@ -1,4 +1,6 @@
 <?php
+
+
 if (!function_exists('url_slug')) {
     /**
      * @param $str
@@ -96,7 +98,7 @@ if (!function_exists('isValidAlphaChar')) {
     }
 }
 
-if (!function_exists('isValidAlphaChar')) {
+if (!function_exists('isValidAlphaCharForNumber')) {
     /**
      * @param $string
      * @return false|int
@@ -159,5 +161,57 @@ if (!function_exists('isValidPhoneNumberVN')) {
      */
     function isValidPhoneNumberVN($phoneNumber){
         return preg_match('/(84|0[3|5|7|8|9])+([0-9]{8})\b/', $phoneNumber);
+    }
+}
+
+if (!function_exists('renderMenu')) {
+    function renderMenu($menuItems)
+    {
+        $output = '';
+        foreach ($menuItems as $item) {
+            if (isset($item['permissions']) && !checkPermissions($item['permissions'])) {
+                continue;
+            }
+
+            $output .= '<li';
+
+            if (isset($item['children'])) {
+                $output .= ' class="treeview"';
+            }
+
+            $output .= '>';
+
+            if (isset($item['route'])) {
+                $output .= '<a href="' . route($item['route']) . '">';
+            } else {
+                $output .= '<a href="#">';
+            }
+
+            if (isset($item['icon'])) {
+                $output .= '<i class="' . $item['icon'] . '"></i> ';
+            }
+
+            $output .= '<span>' . __($item['text']) . '</span>';
+
+            if (isset($item['children'])) {
+                $output .= '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
+                $output .= '<ul class="treeview-menu">';
+                $output .= renderMenu($item['children']);
+                $output .= '</ul>';
+            }
+
+            $output .= '</a>';
+            $output .= '</li>';
+        }
+
+        return $output;
+    }
+}
+
+if (!function_exists('checkPermissions')) {
+    function checkPermissions($permissions)
+    {
+        //auth()->user()->can($permission)
+        return true;
     }
 }

@@ -91,11 +91,11 @@ class UserController extends Controller
         $users = User::pluck('name', 'id')->all();
 
         $form = new FormBuilder();
-        $form->addField('text', 'name', 'Tên');
+        $form->addField('text', 'name', 'Tên', ['labelRequired' => true, 'placeholder' => 'placeholder']);
         $form->addField('email', 'email', 'Email');
         $form->addField('password', 'password', 'Password');
         $form->addField('password', 'password_confirmation', 'Password confirmation');
-        $form->addField('select', 'user_id', 'Select User', [
+        $form->addField('select', 'user_id[]', 'Select User', [
             'options' => $users,
             'multiple' => true,
         ]);
@@ -120,13 +120,38 @@ class UserController extends Controller
                     'blue' => 'Blue',
                 ],
                 'id' => 'color_radio',
-                'value' => 'red',
+                'value' => ['red', 'green'],
                 'class' => 'minimal'
             ]
         );
 
+        $form->addField('checkbox', 'color111', 'Color111',
+            [
+                'choices' => [
+                    'red' => 'Red',
+                    'green' => 'Green',
+                ],
+                'id' => 'color_radio11',
+                'value' => ['red', 'green'],
+                'class' => 'minimal'
+            ]
+        );
+
+        $form->addField('custome', 'custom_field', 'Custom Field', [
+            'html' => '<div><input type="text" name="custom_field">LINH LINH</div>', // Chuỗi HTML tự viết
+        ]);
+
+        $form->addField('textarea', 'content', 'textarea', ['id' => 'ckeditor', 'rows' => 20, 'cols' => 40]);
+
+        $form->addFileField('file', 'Upload File', ['class' => 'file-input', 'id' => 'file-upload']);
+
+        $form->addField('switch', 'my_switch', 'My Switch', ['class' => 'my-switch-class', 'id' => 'my-switch-id', 'value' => true]);
+
         $form->addField('submit', 'submit', 'submit', ['class' => 'btn btn-primary']);
+
         $formHtml = $form->render();
+
+        //dd($formHtml);
 
         $roles = Role::all();
 

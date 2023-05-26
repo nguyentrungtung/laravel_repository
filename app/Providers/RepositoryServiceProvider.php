@@ -29,6 +29,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         //Eloquent
         $this->app->singleton(
+            \App\Repositories\AlbumCategoryRepositoryInterface::class,
+            \App\Repositories\Eloquent\AlbumCategoryRepository::class
+        );
+        $this->app->singleton(
             \App\Repositories\TestRepositoryInterface::class,
             \App\Repositories\Eloquent\TestRepository::class
         );
